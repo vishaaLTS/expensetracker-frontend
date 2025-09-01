@@ -1,0 +1,132 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+body{
+  border-radius: 0%;
+}
+
+.container {
+  max-width: 400px;
+  background-color: white;
+  margin: auto;
+  border-radius: 10px;
+  padding: 10px;
+  color: #000;
+}
+.container h2{
+  text-align: center;
+}
+.expense-item{
+  border: 1px solid #d4d4d4  ;
+  border-radius: 5px;
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+}
+.expense-item.positive{
+  border-right: 4px solid #28a745;
+}
+.expense-item.negative{
+  border-right: 4px solid #dc3545;
+}
+.expense-item.negative .amount{
+ color:  #dc3545;
+}
+.expense-item.positive .amount{
+ color: #28a745;
+}
+.expense-form {
+  border: 1px solid #d4d4d4;
+  border-radius: 5px;
+  padding: 10px;
+}
+.expense-form h4 {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+ .expense-form input{
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+ }
+ .expense-form button {
+   display: block;
+  width: 100%;
+  border: none;
+  padding:10px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #838;
+  color: #ffffff;
+ }
+ .balance-container{
+  padding: 10px;
+  background-color: rgb(177, 46, 177);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+ }
+ .currency-item{
+  padding: 10px;
+  background-color:  rgb(192, 98, 192);
+  border-radius: 5px;
+  color: white;
+  width: 30%;
+  box-sizing: border-box;
+ }
+  .currency-item .title{
+           text-transform: uppercase;
+           font-size: 10px;
+           font-weight: bold;
+           letter-spacing: 1px;
+           text-align: center;
+  }
+  .currency-item .amount{
+    text-align: center;
+
+  }
+  .amount.green{
+    color: rgb(57, 223, 57);
+  }
+  .amount.red{
+    color: #f12727;
+  }
+  .expense-item{
+    position: relative;
+  }
+  .btn-container{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(221, 25, 25, 0.518);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    border-radius: 5px;
+  }
+  .expense-item:hover .btn-container{
+    opacity: 1;
+  }
+  .delete-btn{
+   background-color:  #ff2e2e;
+   border: none;
+   border-radius: 5px;
+   padding: 5px;
+   color: #ffffff;
+   cursor: pointer;
+
+  }
+  
+ 
+
+
+
