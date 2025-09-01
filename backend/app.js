@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express"); 
 const mongoose = require("mongoose");
 const cors = require("cors");
 
@@ -6,13 +6,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ Connect MongoDB
-mongoose
-  .connect("mongodb://127.0.0.1:27017/expenseTracker")
+
+mongoose.connect("mongodb+srv://vishaal:dbuservishaal@cluster0.p60wbum.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    {
+useNewUrlParser:true,
+useUnifiedTopology:true
+
+  })
+  
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log("MongoDB Error:", err));
 
-// ✅ Schema & Model
 const expenseSchema = new mongoose.Schema({
   title: { type: String, required: true },
   amount: { type: Number, required: true },
@@ -20,7 +24,6 @@ const expenseSchema = new mongoose.Schema({
 
 const Expense = mongoose.model("Expense", expenseSchema);
 
-// ✅ Add Expense
 app.post("/addExpense", async (req, res) => {
   try {
     const newExpense = new Expense(req.body);
@@ -31,7 +34,7 @@ app.post("/addExpense", async (req, res) => {
   }
 });
 
-// ✅ Get All Expenses
+
 app.get("/getExpenses", async (req, res) => {
   try {
     const expenses = await Expense.find();
@@ -41,29 +44,42 @@ app.get("/getExpenses", async (req, res) => {
   }
 });
 
-// ✅ Delete Expense
+
 app.delete("/deleteExpense/:id", async (req, res) => {
   try {
-    await Expense.findByIdAndDelete(req.params.id);
-    res.json({ success: true, message: "Expense deleted" });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Error deleting expense" });
+    const { id } = req.params;
+    const expense = await Expense.findByIdAndDelete(id);
+
+    if (!expense) {
+      return res.status(404).json({ success: false, message: "Expense not found" });
+    }
+
+    res.json({ success: true, message: "Expense deleted successfully", expense });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Error deleting expense", error: err.message });
   }
 });
 
-// ✅ Update Expense
+
 app.put("/updateExpense/:id", async (req, res) => {
   try {
+    const { id } = req.params;
     const { title, amount } = req.body;
-    const updated = await Expense.findByIdAndUpdate(
-      req.params.id,
+
+    const expense = await Expense.findByIdAndUpdate(
+      id,
       { title, amount },
       { new: true }
     );
-    res.json({ success: true, message: "Expense updated", expense: updated });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Error updating expense" });
+
+    if (!expense) {
+      return res.status(404).json({ success: false, message: "Expense not found" });
+    }
+
+    res.json({ success: true, message: "Expense updated successfully", expense });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Error updating expense", error: err.message });
   }
 });
 
-app.listen(3000)
+app.listen(3000, () => console.log("Server running on port 3000"));
