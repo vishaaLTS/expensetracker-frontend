@@ -8,10 +8,10 @@ const Container = () => {
   const [transactions, setTransactions] = useState([]);
   const [editItem, setEditItem] = useState(null);
 
-  // ✅ Fetch all expenses
+  
   const fetchExpenses = async () => {
     try {
-      const res = await fetch("http://localhost:3000/getExpenses");
+      const res = await fetch("https://expensetracker-backend-lgk5.onrender.com/getExpenses");
       const data = await res.json();
       setTransactions(data);
     } catch (err) {
@@ -23,10 +23,10 @@ const Container = () => {
     fetchExpenses();
   }, []);
 
-  // ✅ Add Expense
+ 
   const addExpense = async (title, amount) => {
     try {
-      const res = await fetch("http://localhost:3000/addExpense", {
+      const res = await fetch("https://expensetracker-backend-lgk5.onrender.com/addExpense", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, amount: Number(amount) }),
@@ -44,10 +44,10 @@ const Container = () => {
     }
   };
 
-  // ✅ Delete Expense
+
   const deleteExpense = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3000/deleteExpense/${id}`, {
+      const res = await fetch(`https://expensetracker-backend-lgk5.onrender.com/deleteExpense/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {
@@ -61,10 +61,10 @@ const Container = () => {
     }
   };
 
-  // ✅ Update Expense
+  
   const updateExpense = async (id, title, amount) => {
     try {
-      const res = await fetch(`http://localhost:3000/updateExpense/${id}`, {
+      const res = await fetch(`https://expensetracker-backend-lgk5.onrender.com/updateExpense/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, amount: Number(amount) }),
@@ -72,7 +72,7 @@ const Container = () => {
       if (res.ok) {
         toast.success("Transaction updated Successfully");
         fetchExpenses();
-        setEditItem(null); // reset after editing
+        setEditItem(null); 
       } else {
         toast.error("Error updating transaction");
       }
@@ -81,7 +81,7 @@ const Container = () => {
     }
   };
 
-  // ✅ Set item for editing
+  
   const editExpense = (item) => {
     setEditItem(item);
   };

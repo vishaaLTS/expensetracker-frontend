@@ -19,9 +19,9 @@ const ExpenseForm = ({ addExpense, editItem, updateExpense }) => {
     if (!title || !amount) return;
 
     if (editItem) {
-      updateExpense(editItem._id, title, amount); // ✅ update
+      updateExpense(editItem._id, title, amount); 
     } else {
-      addExpense(title, amount); // ✅ add
+      addExpense(title, amount); 
     }
 
     setTitle("");
